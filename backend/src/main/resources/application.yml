@@ -1,0 +1,65 @@
+# ============================================
+# SmartDesk Ticketing System — Configuration
+# ============================================
+
+spring:
+  application:
+    name: smartdesk-backend
+
+  # --- Database ---
+  datasource:
+    url: jdbc:postgresql://localhost:5432/smartdesk
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # --- Mail (Mailtrap) ---
+  mail:
+    host: ${MAIL_HOST:sandbox.smtp.mailtrap.io}
+    port: ${MAIL_PORT:2525}
+    username: ${MAIL_USERNAME:your_mailtrap_username}
+    password: ${MAIL_PASSWORD:your_mailtrap_password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # --- File Upload ---
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+# --- Server ---
+server:
+  port: 8080
+
+# --- JWT ---
+app:
+  jwt:
+    secret: SmartDeskSecretKeyForJWTTokenGenerationMustBeAtLeast256BitsLong2024!
+    expiration-ms: 86400000
+
+  file:
+    upload-dir: ./uploads
+    allowed-types: image/png,image/jpeg,application/pdf
+    max-size: 5242880
+
+# --- Swagger ---
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
